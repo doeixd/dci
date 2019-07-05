@@ -53,7 +53,7 @@ const columns = [
   },
 ];
 let datas
-fetch('http://localhost:3000/data')
+fetch('http://localhost/data')
   .then(res => res.json())
   .then(res => Object.keys(res).map(i => res[i]))
   .then(res => datas = res).then(res => console.log(datas))
