@@ -1,0 +1,74 @@
+{
+  "20 Hot" : {
+     "VA": "River City Rhythm",
+     "VP": "River City Rhythm",
+     "GE": "Blue Devils",
+     "MA": "Blue Devils",
+     "CG": "Bluecoats",
+     "BRS": "Crossmen",
+     "Perc": "Santa Clara Vanguard"     
+    },
+  "The Mountaineers": {
+     "VP": "Seattle Cascades",
+     "VA": "Seattle Cascades",
+     "GE": "Blue Knights",
+     "MA": "Bluecoats",
+     "CG": "Blue Knights",
+     "BRS": "Santa Clara Vanguard",
+     "Perc": "Bluecoats"
+   },
+  "The Fompany Cunts": {
+     "VP": "Blue Knights",
+     "VA": "Blue Knights",
+     "GE": "Santa Clara Vanguard",
+     "MA": "Boston Crusaders",
+     "CG": "Boston Crusaders",
+     "BRS": "The Academy",
+     "Perc": "Blue Knights"
+   },
+  "The Shakiras": {
+     "VP": "Jersey Surf",
+     "VA": "Jersey Surf",
+     "GE": "Bluecoats",
+     "MA": "Santa Clara Vanguard",
+     "CG": "Phantom Regiment",
+     "BRS": "Carolina Crown",
+     "Perc": "The Cadets"
+   },
+   "The Blue Man Group": {
+     "VP": "Blue Devils",
+     "VA": "Blue Devils",
+     "GE": "Boston Crusaders",
+     "MA": "Carolina Crown",
+     "CG": "Carolina Crown",
+     "BRS": "Jersey Surf",
+     "Perc": "Boston Crusaders"
+   },
+  "Hugenut Crusaders": {
+     "VP": "The Cavaliers",
+     "VA": "The Cavaliers",
+     "GE": "Spirit of Atlanta",
+     "MA": "Phantom Regiment",
+     "CG": "Boston Crusaders",
+     "BRS": "Mandarins",
+     "Perc": "Blue Stars"
+   },
+  "The Carnies": {
+     "VA": "Carolina Crown",
+     "VP": "Carolina Crown",
+     "GE": "Music City",
+     "MA": "The Cavaliers",
+     "CG": "Blue Stars",
+     "BRS": "Blue Devils",
+     "Perc": "Mandarins"
+   },
+  "Big Mike": {
+     "VA": "Mandarins",
+     "VP": "Mandarins",
+     "GE": "Crossmen",
+     "MA": "Blue Stars",
+     "CG": "Blue Devils",
+     "BRS": "Madison Scouts",
+     "Perc": "Blue Devils"
+   }
+}

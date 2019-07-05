@@ -1,0 +1,39 @@
+{
+  "name": "dci",
+  "version": "1.0.0",
+  "description": "dci fantasy league",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start -p 80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doeixd/dci.git"
+  },
+  "keywords": [
+    "dci",
+    "drum",
+    "corps"
+  ],
+  "author": "Patrick Glenn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doeixd/dci/issues"
+  },
+  "homepage": "https://github.com/doeixd/dci#readme",
+  "dependencies": {
+    "antd": "^3.20.0",
+    "diskdb": "^0.1.17",
+    "express": "^4.17.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash.takeright": "^4.1.1",
+    "lowdb": "^1.0.0",
+    "next": "^8.1.0",
+    "node-cron": "^2.0.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "uuid": "^3.3.2"
+  }
+}
