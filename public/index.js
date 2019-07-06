@@ -8,7 +8,7 @@ let ranksNode = document.getElementById('ranks')
 // In the fifth row, other columns are merged into first column
 // by setting it's colSpan to be 0
 let datas
-fetch('http://208.167.245.45/data')
+fetch('http://localhost/data')
   .then(res => res.json())
   .then(res => Object.keys(res).map(i => res[i]))
   .then(res => datas = res)
@@ -30,7 +30,7 @@ fetch('https://backend.dci.org/api/v1/performances/overall-rankings')
   .then(res => ranks = res)
   .then(res => ranks.map((val) => {val.total = val.lastScore; val.name = val._id}))
   .then(res => ranks.concat(datas))
-  .then(res => ReactDOM.render(<Table size="middle" title={() => 'Ranks'} rowKey={record => Math.random()}  pagination={false} columns={rankColumns} dataSource={res} bordered />, ranksNode))
+  .then(res => ReactDOM.render(<Table size="middle"  rowKey={record => Math.random()}  pagination={false} columns={rankColumns} dataSource={res} bordered />, ranksNode))
 
 
 

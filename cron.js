@@ -12,6 +12,10 @@ Array.prototype.right = function (n = 1) { return this[this.length - n] }
 refresh()
 
 app.use(express.static('dist'))
+// app.use('/*', (req, res, next) => {
+//   console.log(req.ip)
+//   console.log(req.path)
+// })
 
 app.get('/data', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/calc.json'))
@@ -24,12 +28,12 @@ app.listen(80)
 
 let job = cron.schedule('* */30 * * *', () => {
   refresh()
-  })
-  
+})
+
 job.start()
 
 
-async function refresh() {
+function refresh() {
   ; (async function () {
     let scores = JSON.parse(fs.readFileSync('./scores/scores.json'))
     let teams = JSON.parse(fs.readFileSync('./teams.json'))
