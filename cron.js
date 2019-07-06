@@ -17,12 +17,12 @@ app.use(express.static('dist'))
 //   console.log(req.path)
 // })
 
-app.get('/data', (req, res) => {
+app.get('/refresh', (req, res) => {
   refresh()
   res.send('REFRESH')
 })
 
-app.get('/refresh', (req, res) => {
+app.get('/data', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/calc.json'))
   res.send(data)
 })
