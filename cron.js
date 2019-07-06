@@ -71,6 +71,7 @@ function refresh() {
 async function getLatestScores(divi) {
   let data = await fetch(divi)
   data = await data.json()
+  console.log(data)
   return parseData(data)
 }
 
