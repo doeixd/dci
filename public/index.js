@@ -120,6 +120,7 @@ const columns = [
     // key:'name',
     defaultSortOrder: 'descend',
     sorter: (a, b) => { return Number(a.total) - Number(b.total)},
+    render: val => (<b>{`${val}%`}</b>)
     // sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
   },
 ];
