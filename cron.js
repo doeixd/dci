@@ -3,10 +3,13 @@ const cron = require('node-cron')
 const app = express()
 const fetch = require('isomorphic-unfetch')
 const fs = require('fs')
+let worldURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=World+Class&season=2019'
+let openURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=Open+Class&season=2019'
 
 Array.prototype.right = function (n = 1) { return this[this.length - n] }
 
 
+refresh()
 
 app.use(express.static('dist'))
 
@@ -17,10 +20,7 @@ app.get('/data', (req, res) => {
 app.listen(80)
 
 
-let openURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=Open+Class&season=2019'
-let worldURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=World+Class&season=2019'
 
-refresh()
 
 let job = cron.schedule('* */30 * * *', () => {
   refresh()
