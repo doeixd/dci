@@ -6,6 +6,8 @@ const fs = require('fs')
 
 Array.prototype.right = function (n = 1) { return this[this.length - n] }
 
+
+
 app.use(express.static('dist'))
 
 app.get('/data', (req, res) => {
@@ -18,26 +20,33 @@ app.listen(80)
 let openURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=Open+Class&season=2019'
 let worldURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=World+Class&season=2019'
 
-// let job = cron.schedule('* * */3 * *', () => {
+refresh()
+
+let job = cron.schedule('* */30 * * *', () => {
+  refresh()
+  })
+  
+job.start()
+
+
+async function refresh() {
   ; (async function () {
     let scores = JSON.parse(fs.readFileSync('./scores/scores.json'))
     let teams = JSON.parse(fs.readFileSync('./teams.json'))
-    
+
     let latestWorldScores = await getLatestScores(worldURL)
     let latestOpenScores = await getLatestScores(openURL)
-    
+
     let newScores = { ...latestWorldScores, ...latestOpenScores }
     newScores = Object.assign(newScores, scores)
     scores = newScores
-    
+
     fs.writeFileSync('./scores/scores.json', JSON.stringify(newScores))
     fs.writeFileSync('./scores/calc.json', JSON.stringify(calcTeamScores(teams, scores)))
 
   })()
+}
 
-  // })
-  
-// job.start()
 
 async function getLatestScores(divi) {
   let data = await fetch(divi)
