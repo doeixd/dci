@@ -17,6 +17,11 @@ app.use(express.static('dist'))
 //   console.log(req.path)
 // })
 
+app.use(function (req, res, next) {
+  console.log('GOT HIT')
+  next()
+})
+
 app.get('/refresh', (req, res) => {
   refresh()
   res.send('REFRESH')
