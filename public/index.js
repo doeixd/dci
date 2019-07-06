@@ -1,10 +1,66 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Table } from 'antd';
+import { Table, Typography } from 'antd';
 import 'antd/dist/antd.css';
+const Title = { Typography }
 let mountNode = document.getElementById('root')
+let ranksNode = document.getElementById('ranks')
 // In the fifth row, other columns are merged into first column
 // by setting it's colSpan to be 0
+let datas
+fetch('http://localhost/data')
+  .then(res => res.json())
+  .then(res => Object.keys(res).map(i => res[i]))
+  .then(res => datas = res)
+  .then(res => ReactDOM.render(<Table size="middle" rowKey={record => Math.random()} expandedRowRender={(fun) => expandedRowRender([fun]) } pagination={false}  columns={columns} dataSource={datas} bordered />, mountNode))
+
+let rankColumns = [
+  { title: 'Corps', dataIndex: 'name', align: 'center', render: (val, row, index) => { if (row.GE) { return (<div style={{padding: '8px', background: '#e6f7ff', margin: '-8px'}}>{val}</div>)}else {return val} } },
+  {title: 'Latest Score', 
+  dataIndex: 'total',    
+  defaultSortOrder: 'descend',
+    align: 'center',
+    sorter: (a, b) => { return Number(a.total) - Number(b.total) }, render: (val, row, index) => { if (row.GE) { return (<div style={{ padding: '8px', background: '#e6f7ff', margin: '-8px' }}>{val}</div>) } else { return val } }
+}
+]
+
+let ranks
+fetch('https://backend.dci.org/api/v1/performances/overall-rankings')
+  .then(res => res.json())
+  .then(res => ranks = res)
+  .then(res => ranks.map((val) => {val.total = val.lastScore; val.name = val._id}))
+  .then(res => ranks.concat(datas))
+  .then(res => ReactDOM.render(<Table size="middle" title={() => 'Ranks'} rowKey={record => Math.random()}  pagination={false} columns={rankColumns} dataSource={res} bordered />, ranksNode))
+
+
+
+const expandedRowRender = (fun) => {
+
+  const columns = [
+    { title: 'Name', dataIndex: 'name', render: (doc => doc)}, 
+    {title: 'Caption Picks', 
+    children: [
+      { title: 'General Effect', dataIndex: 'GE', align: 'center' },
+      { title: 'Visual', dataIndex: 'VA', align: 'center' },
+      { title: 'Color Gaurd', dataIndex: 'CG', align: 'center' },
+      { title: 'Music - Analysis', dataIndex: 'MA', align: 'center'},
+      { title: 'Music - Brass', dataIndex: 'BRS', align: 'center'},
+      { title: 'Music - Percussion', dataIndex: 'Perc', align: 'center'},
+
+    ]
+    }
+
+  ];
+
+let data = fun.reduce((acc, cur) => {
+  cur.choices.name = cur.name
+  acc.push(cur.choices)
+  return acc
+}, [])
+console.log(data)
+
+  return <Table columns={columns} rowKey={record => Math.random()} dataSource={data} pagination={false} />;
+};
 const columns = [
   {
     title: 'Team Name',
@@ -17,91 +73,57 @@ const columns = [
     align: 'center'
   },
   {
-    title: 'Visual - Analysis',
-    dataIndex: 'VA',
-    align: 'center'
+    title: 'Visual',
+    children: [
+      {
+        title: 'Visual - Analysis',
+        dataIndex: 'VA',
+        align: 'center'
+      },
+      {
+        title: 'Visual Proficiency ',
+        dataIndex: 'VP',
+        align: 'center'
+      },
+      {
+        title: 'Color Guard ',
+        dataIndex: 'CG',
+        align: 'center'
+      }
+    ]
   },
   {
-    title: 'Visual Proficiency ',
-    dataIndex: 'VP',
-    align: 'center'
+    title: 'Music',
+    children: [
+      {
+        title: 'Music -  Brass',
+        dataIndex: 'BRS',
+        align: 'center'
+      },
+      {
+        title: 'Music - Analysis',
+        dataIndex: 'MA',
+        align: 'center'
+      },
+      {
+        title: 'Music - Percussion',
+        dataIndex: 'Perc',
+        align: 'center'
+      }
+    ]
   },
-  {
-    title: 'Color Guard ',
-    dataIndex: 'CG',
-    align: 'center'
-  },
-  {
-    title: 'Music -  Brass',
-    dataIndex: 'BRS',
-    align: 'center'
-  },
-  {
-    title: 'Music - Analysis',
-    dataIndex: 'MA',
-    align: 'center'
-  },
-  {
-    title: 'Music - Percussion',
-    dataIndex: 'MA',
-    align: 'center'
-  },
+
   {
     title: 'Total',
     dataIndex: 'total',
-    align: 'center'
+    align: 'center',
+    // key:'name',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => { return Number(a.total) - Number(b.total)},
+    // sortOrder: sortedInfo.columnKey === 'name' && sortedInfo.order,
   },
 ];
-let datas
-fetch('http://localhost/data')
-  .then(res => res.json())
-  .then(res => Object.keys(res).map(i => res[i]))
-  .then(res => datas = res).then(res => console.log(datas))
-  .then(res => ReactDOM.render(<Table size="middle" columns={columns} dataSource={datas} bordered />, mountNode))
 
 
 
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    tel: '0571-22098909',
-    phone: 18889898989,
-    address: 'New York No. 1 Lake Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    tel: '0571-22098333',
-    phone: 18889898888,
-    age: 42,
-    address: 'London No. 1 Lake Park',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'Sidney No. 1 Lake Park',
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 18,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'London No. 2 Lake Park',
-  },
-  {
-    key: '5',
-    name: 'Jake White',
-    age: 18,
-    tel: '0575-22098909',
-    phone: 18900010002,
-    address: 'Dublin No. 2 Lake Park',
-  },
-];
 // ReactDOM.render(<Table columns={columns} dataSource={datas} bordered />, mountNode);

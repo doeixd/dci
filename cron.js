@@ -12,7 +12,7 @@ app.get('/data', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/calc.json'))
   res.send(data)
 })
-app.listen(3000)
+app.listen(80)
 
 
 let openURL = 'https://backend.dci.org/api/v1/performances/corps-results?class=Open+Class&season=2019'
@@ -79,20 +79,23 @@ function calcTeamScores (teams, scores)  {
   Object.entries(teams).map(([team, picks]) => {
     obj[team] = {}
     obj[team].name = team
+    obj[team].choices = {}
     Object.entries(picks).map(([caption, corps]) => {
       let search = caption == 'GE' ? 'generalEffect' : caption
+      obj[team].choices[caption] = corps
+      // console.log(obj[team]) 
       for (show of scores[corps].shows) {
         if (!show[search]) break
         obj[team][caption] = show[search]
       }
     })
-    obj[team].weightedTotal = Object.entries(obj[team]).slice(1).reduce( (acc, cur) => {
+    obj[team].weightedTotal = Object.entries(obj[team]).slice(2).reduce((acc, cur) => {
       cur[1] = Number(cur[1])
-      console.log(cur)
+      // console.log(cur)
       return cur[0] == 'GE' ? cur[1] + acc : (cur[1]/2 + acc)
     }, 0  ).toFixed(2) 
-    obj[team].total = (Object.entries(obj[team]).slice(0,-1).slice(1).reduce( (acc, cur) => (+cur[1] + acc), 0  ) / 160 * 100).toFixed(2) 
+    obj[team].total = (Object.entries(obj[team]).slice(0,-1).slice(2).reduce((acc, cur) => (+cur[1] + acc), 0  ) / 160 * 100).toFixed(2) 
   })
-
+  // console.log(obj)
   return obj
 }
