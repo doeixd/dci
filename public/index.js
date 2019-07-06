@@ -42,7 +42,7 @@ const expandedRowRender = (fun) => {
     children: [
       { title: 'General Effect', dataIndex: 'GE', align: 'center' },
       { title: 'Visual', dataIndex: 'VA', align: 'center' },
-      { title: 'Color Gaurd', dataIndex: 'CG', align: 'center' },
+      { title: 'Color Guard', dataIndex: 'CG', align: 'center' },
       { title: 'Music - Analysis', dataIndex: 'MA', align: 'center'},
       { title: 'Music - Brass', dataIndex: 'BRS', align: 'center'},
       { title: 'Music - Percussion', dataIndex: 'Perc', align: 'center'},

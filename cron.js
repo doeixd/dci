@@ -18,9 +18,15 @@ app.use(express.static('dist'))
 // })
 
 app.get('/data', (req, res) => {
+  refresh()
+  res.send('REFRESH')
+})
+
+app.get('/refresh', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/calc.json'))
   res.send(data)
 })
+
 app.listen(80)
 
 
@@ -48,6 +54,7 @@ function refresh() {
     fs.writeFileSync('./scores/scores.json', JSON.stringify(newScores))
     fs.writeFileSync('./scores/calc.json', JSON.stringify(calcTeamScores(teams, scores)))
 
+    console.log(`FINISHED REFRESH; ${ Date.now() }`)
   })()
 }
 
