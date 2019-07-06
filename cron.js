@@ -26,6 +26,10 @@ app.get('/data', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/calc.json'))
   res.send(data)
 })
+app.get('/scores', (req, res) => {
+  let data = JSON.parse(fs.readFileSync('./scores/scores.json'))
+  res.send(data)
+})
 
 app.listen(80)
 
