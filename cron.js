@@ -57,7 +57,7 @@ function refresh() {
     let latestOpenScores = await getLatestScores(openURL)
 
     let newScores = { ...latestWorldScores, ...latestOpenScores }
-    newScores = Object.assign(newScores, scores)
+    // newScores = Object.assign(newScores, scores)
     scores = newScores
 
     fs.writeFileSync('./scores/scores.json', JSON.stringify(newScores))
