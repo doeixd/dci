@@ -8,7 +8,7 @@ let ranksNode = document.getElementById('ranks')
 // In the fifth row, other columns are merged into first column
 // by setting it's colSpan to be 0
 let datas
-fetch('http://localhost/data')
+fetch('http://208.167.245.45/data')
   .then(res => res.json())
   .then(res => Object.keys(res).map(i => res[i]))
   .then(res => datas = res)
