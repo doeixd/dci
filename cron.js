@@ -115,6 +115,7 @@ function calcTeamScores (teams, scores)  {
       obj[team].choices[caption] = corps
       // console.log(obj[team]) 
       for (show of scores[corps].shows) {
+        console.log(show[search])
         if (show[search] == '0' || !show[search] ) break
         obj[team][caption] = show[search]
       }
