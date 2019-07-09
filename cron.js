@@ -116,8 +116,13 @@ function calcTeamScores (teams, scores)  {
       let search = caption == 'GE' ? 'generalEffect' : caption
       obj[team].choices[caption] = corps
       // console.log(obj[team]) 
+      let c = -1
       for (show of scores[corps].shows) {
-        if (show[search] == '0.00' || !show[search] ) break
+        c += 1
+        if (!show[search] ) break
+        if (show[search] == '0.00') {
+          continue
+        } 
         obj[team][caption] = show[search]
       }
     })
