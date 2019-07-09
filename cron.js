@@ -58,10 +58,12 @@ function refresh() {
 
     let newScores = { ...latestWorldScores, ...latestOpenScores }
     // newScores = Object.assign(newScores, scores)
-    scores = newScores
+    // scores = newScores
+
+    let calcScores = calcTeamScores(teams, newScores)
 
     fs.writeFileSync('./scores/scores.json', JSON.stringify(newScores))
-    fs.writeFileSync('./scores/calc.json', JSON.stringify(calcTeamScores(teams, scores)))
+    fs.writeFileSync('./scores/calc.json', JSON.stringify(calcScores))
 
     console.log(`FINISHED REFRESH; ${ Date.now() }`)
   })()
