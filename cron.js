@@ -11,7 +11,7 @@ Array.prototype.right = function (n = 1) { return this[this.length - n] }
 
 refresh()
 
-app.use(express.static('dist'))
+
 // app.use('/*', (req, res, next) => {
 //   console.log(req.ip)
 //   console.log(req.path)
@@ -35,6 +35,9 @@ app.get('/scores', (req, res) => {
   let data = JSON.parse(fs.readFileSync('./scores/scores.json'))
   res.send(data)
 })
+
+
+app.use(express.static('dist'))
 
 app.listen(80)
 
@@ -73,7 +76,7 @@ function refresh() {
 async function getLatestScores(divi) {
   let data = await fetch(divi)
   data = await data.json()
-  // console.log(data)
+   //console.log(data)
   return parseData(data)
 }
 
@@ -92,17 +95,18 @@ function parseData(d) {
         obj[corps].shows[idx] = {}
         obj[corps].shows[idx].date = show.competition.date.replace('T00:00:00', '')
         show.categories.map((caption) => {
-          caption.Name == 'General Effect' ? caption.Name = 'generalEffect' : null
+          caption.Name == 'General Effect' ? caption.Name = 'GE' : null
           if (caption.Name == 'Timing & Penalties') return;
           obj[corps].shows[idx][caption.Name] = caption.Score
           caption.Captions
-          .map((subcaption) => {
-            obj[corps].shows[idx][subcaption.Initials.replace(' ', '')] = subcaption.Score
+ 	    .map((subcaption) => {
+              obj[corps].shows[idx][subcaption.Initials.replace(' ', '')] = subcaption.Score
+		//console.log(`${corps}, ${subcaption.Initials.replace(' ','')}: ${subcaption.Score}`)
+            })
           })
-        })
       } )        
     })
-    
+    //console.log(JSON.parse(JSON.stringify(obj)))
   return obj
 }
 
@@ -113,17 +117,18 @@ function calcTeamScores (teams, scores)  {
     obj[team].name = team
     obj[team].choices = {}
     Object.entries(picks).map(([caption, corps]) => {
-      let search = caption == 'GE' ? 'generalEffect' : caption
-      obj[team].choices[caption] = corps
-      // console.log(obj[team]) 
+	     
+	obj[team].choices[caption] = corps
+      
       let c = -1
       for (show of scores[corps].shows) {
         c += 1
-        if (!show[search] ) break
-        if (show[search] == '0.00') {
+	if(corps == 'Santa Clara Vanguard') console.log(`${team} ${caption} ${corps} ${show[caption]}`)  
+
+        if (show[caption] == '0.00' || !show[caption]) {
           continue
         } 
-        obj[team][caption] = show[search]
+        obj[team][caption] = show[caption]
       }
     })
     obj[team].weightedTotal = Object.entries(obj[team]).slice(2).reduce((acc, cur) => {
